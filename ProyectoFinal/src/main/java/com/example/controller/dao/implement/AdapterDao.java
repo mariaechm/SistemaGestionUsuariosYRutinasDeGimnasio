@@ -16,7 +16,7 @@ import java.util.Scanner;
 import com.example.controller.tda.list.LinkedList;
 import com.google.gson.Gson;
 
-public class AdapterDao<T> implements InterfazDao, InterfazDao<T> {
+public class AdapterDao<T> implements InterfazDao<T> {
 
     private Class clazz;
     private Gson g;
