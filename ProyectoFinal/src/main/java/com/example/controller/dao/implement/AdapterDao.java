@@ -18,8 +18,8 @@ import com.google.gson.Gson;
 
 public class AdapterDao<T> implements InterfazDao<T> {
 
-    private Class clazz;
-    private Gson g;
+    private Class<?> clazz;
+    protected Gson g;
     public static String URL = "media/";
 
     public AdapterDao(Class clazz) {
