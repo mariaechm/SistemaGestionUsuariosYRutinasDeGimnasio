@@ -6,5 +6,5 @@ package com.example.models.enumerator;
  */
 
 public enum Rol {
-
+    ADMINISTRADOR, CLIENTE;
 }

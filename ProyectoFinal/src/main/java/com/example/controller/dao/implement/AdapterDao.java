@@ -11,41 +11,39 @@ package com.example.controller.dao.implement;
 
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.Scanner;
 
 import com.example.controller.tda.list.LinkedList;
 import com.google.gson.Gson;
 
-public class AdapterDao<T> implements InterfazDao, InterfazDao<T> {
+public class AdapterDao<T> implements InterfazDao<T> {
 
-    private Class clazz;
-    private Gson g;
+    private Class<?> clazz;
+    protected Gson g;
     public static String URL = "media/";
 
-    public AdapterDao(Class clazz) {
+    public AdapterDao(Class<?> clazz) {
         this.clazz = clazz;
         g = new Gson();
     }
 
-    @Override
-    public LinkedList listAll() {
+    public LinkedList<T> listAll() {
         LinkedList<T> list = new LinkedList<>();
         try {
             String data = readFile();
-            T[] matrix = (T[]) g.fromJson(data, java.lang.reflect.Array.newInstance(clazz, 0).getClass());
+            Type arrayType = Array.newInstance(clazz, 0).getClass();
+            T[] matrix = g.fromJson(data,arrayType);
             list.toList(matrix);
-
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return list;
     }
 
     public T get(Integer id) throws Exception {
-        return null;
-    }
-
-    public AdapterDao(InterfazDao<T> dao) {
+        return listAll().get(id);
     }
 
     public void persist(T object) throws Exception {
@@ -56,9 +54,13 @@ public class AdapterDao<T> implements InterfazDao, InterfazDao<T> {
     }
 
     public void merge(T object, Integer index) throws Exception {
+        LinkedList<T> list = listAll();
+        list.update(object, index);
+        String data = g.toJson(list.toArray());
+        saveFile(data);
     }
 
-    private String readFile() throws Exception {
+    protected String readFile() throws Exception {
         Scanner in = new Scanner(new FileReader(URL + clazz.getSimpleName() + ".json"));
         StringBuilder sb = new StringBuilder();
         while (in.hasNext()) {
@@ -68,7 +70,7 @@ public class AdapterDao<T> implements InterfazDao, InterfazDao<T> {
         return sb.toString();
     }
 
-    private void saveFile(String data) throws Exception {
+    protected void saveFile(String data) throws Exception {
         FileWriter f = new FileWriter(URL + clazz.getSimpleName() + ".json");
         f.write(data);
         f.flush();

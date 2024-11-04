@@ -1,8 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.example.controller.tda.list;
+import java.lang.reflect.Array;
+
 import com.example.controller.exception.ListEmptyException;
 
 /**
@@ -35,7 +33,6 @@ public class LinkedList<E> {
             Node<E> healpHeader = this.header;
             help = new Node<>(dato, healpHeader);
             this.header = help;
-            //this.size++;
         }
         this.size++;
     }
@@ -96,9 +93,9 @@ public class LinkedList<E> {
         } else if (index.intValue() < 0 || index.intValue() >= this.size.intValue()) {
             throw new IndexOutOfBoundsException("Error, fuera de rango");
         } else if (index.intValue() == 0) {
-            return header.getInfo();
+            return getFirst();
         } else if (index.intValue() == (this.size - 1)) {
-            return last.getInfo();
+            return getLast();
         } else {
             Node<E> search = header;
             int cont = 0;
@@ -122,6 +119,57 @@ public class LinkedList<E> {
             search_preview.setNext(help);
             this.size++;
         }
+    }
+
+    public void deleteHeader() throws ListEmptyException {
+        if(isEmpty()) {
+            throw new ListEmptyException("Cannot delete, LinkedList is empty");
+        } else {
+            Node<E> delete = this.header;
+            this.header = delete.getNext();
+            delete.setNext(null);
+            delete = null;            
+            this.size--;
+        }
+    }
+
+    public void deleteLast() throws ListEmptyException {
+        if(isEmpty()) {
+            throw new ListEmptyException("Cannot delete, LinkedList is empty");
+        } else {
+            if(this.last == null) {
+                this.deleteHeader();
+            } else { 
+                Node<E> delete = this.last;
+                delete.setNext(null);
+                this.last = this.getNode(size-2);
+                delete = null;
+                this.size--;
+            }
+        }
+    }
+
+    public void delete(Integer index) throws Exception {
+        if(isEmpty()) {
+            throw new ListEmptyException("Cannot delete, LinkedList is empty");
+        } else if(index < 0 || index >= this.size-1) {
+            throw new IndexOutOfBoundsException("Cannot delete, index out bounds");
+        } else if(index == 0) {
+            this.deleteHeader();
+        } else if(index == this.size - 1) {
+            this.deleteLast();
+        } else {
+            Node<E> previus = getNode(index-1);
+            Node<E> eliminar = previus.getNext();
+            previus.setNext(eliminar.getNext());
+            eliminar.setNext(null);
+            eliminar = null;
+            this.size--;
+        }
+    }
+
+    public void update(E info, Integer index) throws Exception {
+        this.getNode(index).setInfo(info);
     }
 
     /*** END BY POSITION */
@@ -153,15 +201,21 @@ public class LinkedList<E> {
     }
 
     public E[] toArray(){
-        E[] matrix = null;
+        E[] matrix;
         if (!isEmpty()) {
-            Class clazz = header.getInfo().getClass();
-            matrix = (E[]) java.lang.reflect.Array.newInstance(clazz, size);
+            Class<?> clazz = header.getInfo().getClass();
+            @SuppressWarnings("unchecked")
+            E[] matrix1 = (E[]) java.lang.reflect.Array.newInstance(clazz, size);
+            matrix = matrix1;
             Node<E> aux = header;
             for(int i=0; i<size; i++){
                 matrix[i] = aux.getInfo();
                 aux = aux.getNext();
             }
+        } else {
+            @SuppressWarnings("unchecked")
+            E[] matrix1 = (E[])Array.newInstance(this.header.getInfo().getClass(), 0);
+            return matrix1;
         }
         return matrix;
     }

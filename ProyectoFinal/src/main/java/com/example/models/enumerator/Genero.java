@@ -6,5 +6,5 @@ package com.example.models.enumerator;
  */
 
 public enum Genero {
-
+    HOMBRE,MUJER,OTRO;
 }
