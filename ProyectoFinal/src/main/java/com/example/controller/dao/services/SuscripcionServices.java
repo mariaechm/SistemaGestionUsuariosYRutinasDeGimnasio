@@ -4,10 +4,47 @@
  */
 package com.example.controller.dao.services;
 
+import com.example.controller.dao.SuscripcionDao;
+import com.example.models.Suscripcion;
+import com.example.models.enumerator.TipoSuscripcion;
 /**
  *
  * @author Grupo6
  */
+
 public class SuscripcionServices {
+    private  SuscripcionDao obj;
+
+    public SuscripcionServices() {
+        this.obj = new SuscripcionDao();
+    }
     
+    public Suscripcion getSuscripcion() {
+        return this.obj.getSuscripcion();
+    }
+    
+    public void setSuscripcion (Suscripcion suscripcion) {
+        this.obj.setSuscripcion(suscripcion);
+    }
+
+    public TipoSuscripcion [] tiposSuscripcion() {
+        return this.obj.tiposSuscripcion();
+    }
+        
+    public Suscripcion getSuscripcionId(Integer id) throws Exception {
+        return this.obj.getSuscripcionId(id);
+    }
+      
+    public Boolean save() throws Exception {
+        return this.obj.save();
+    }
+
+    public void update(Suscripcion suscripcion) throws Exception {
+        this.obj.updateSuscripcion(suscripcion);
+    }
+
+    public void delete(Integer id) throws Exception {
+            this.obj.deleteSuscripcion(id);
+    }
+
 }

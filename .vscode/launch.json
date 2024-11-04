@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "request": "launch",
+            "name": "Launch Main Class",
+            "mainClass": "com.example.rest.Main",
+            "projectName": "ProyectoFinal"
+        }
+    ]
+}
