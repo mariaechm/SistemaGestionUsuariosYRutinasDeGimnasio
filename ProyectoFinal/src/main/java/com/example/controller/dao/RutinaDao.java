@@ -1,12 +1,13 @@
 package com.example.controller.dao;
 
-import java.util.LinkedList;
-
-import org.glassfish.grizzly.ConnectionProbe.Adapter;
+import java.lang.reflect.Type;
 
 import com.example.controller.dao.implement.AdapterDao;
+import com.example.controller.dao.implement.JsonData;
+import com.example.controller.tda.list.LinkedList;
 import com.example.models.Rutina;
 import com.example.models.enumerator.GrupoMuscularObjetivo;
+import com.google.gson.reflect.TypeToken;
 
 
 public class RutinaDao extends AdapterDao<Rutina> {
@@ -15,6 +16,22 @@ public class RutinaDao extends AdapterDao<Rutina> {
 
     public RutinaDao() {
         super(Rutina.class);
+    }
+
+    protected Integer getIndexToOperate(Integer id) throws Exception {
+        Rutina[] array = listAll().toArray();
+        for(int i = 0; i < array.length; i++) {
+            if(array[i].getId().equals(id)) {
+                return i;
+            }
+        }
+        throw new Exception("IdNotFound");
+    }
+
+    protected JsonData<Rutina> readFileAsJsonData() throws Exception {
+        Type jsonDataType = new TypeToken<JsonData<Rutina>>(){}.getType();
+        JsonData<Rutina> jsonData = g.fromJson(readFile(), jsonDataType);
+        return jsonData;
     }
 
     public Rutina getRutina() {
@@ -53,11 +70,6 @@ public class RutinaDao extends AdapterDao<Rutina> {
 
     public void updateRutina(Integer id) throws Exception {
         this.merge(this.rutina, id);
-    }
-
-    public void deleteRutina(Integer id) throws Exception {
-        this.listAll = listAll();
-        delete(id, g.toJson(listAll.toArray()));
     }
 
     public String toJson() {

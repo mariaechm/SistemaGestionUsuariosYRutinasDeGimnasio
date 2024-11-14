@@ -4,6 +4,8 @@
  */
 package com.example.controller.dao.implement;
 
+import java.io.BufferedReader;
+
 /**
  *
  * @author Grupo6
@@ -12,29 +14,54 @@ package com.example.controller.dao.implement;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Array;
-import java.lang.reflect.Type;
-import java.util.Scanner;
+import java.util.HashMap;
 
 import com.example.controller.tda.list.LinkedList;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-public class AdapterDao<T> implements InterfazDao<T> {
+public abstract class AdapterDao<T> implements InterfazDao<T> {
 
-    private Class<?> clazz;
+    private Class<?> modelClass;
     protected Gson g;
     public static String URL = "media/";
+    protected Integer currentId;
 
-    public AdapterDao(Class<?> clazz) {
-        this.clazz = clazz;
+    public AdapterDao(Class<?> modelClass) {
+        this.modelClass = modelClass;
         g = new Gson();
+    }
+
+    public AdapterDao(Class<?> modelClass,Integer contadorId) throws Exception {
+        this(modelClass);   
+        this.currentId = readContador(contadorId);
+    }
+
+    protected abstract Integer getIndexToOperate(Integer id) throws Exception;
+    protected abstract JsonData<T> readFileAsJsonData() throws Exception;  
+
+    private Integer readContador(Integer initialId) throws Exception {
+        Integer contador_Id;
+        try {
+            if(readFileAsJsonData().getCurrentId() == null) {
+                @SuppressWarnings("unchecked")
+                T[] array = (T[])Array.newInstance(modelClass, 0);
+                saveFile(array,initialId);
+            }
+            contador_Id = readFileAsJsonData().getCurrentId();
+        } catch (Exception e) {
+            @SuppressWarnings("unchecked")
+                T[] array = (T[])Array.newInstance(modelClass, 0);
+            saveFile(array,initialId);
+            contador_Id = readFileAsJsonData().getCurrentId();
+        }
+        return contador_Id;
     }
 
     public LinkedList<T> listAll() {
         LinkedList<T> list = new LinkedList<>();
         try {
-            String data = readFile();
-            Type arrayType = Array.newInstance(clazz, 0).getClass();
-            T[] matrix = g.fromJson(data,arrayType);
+            T[] matrix = readFileAsJsonData().getObjects();
             list.toList(matrix);
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,37 +70,59 @@ public class AdapterDao<T> implements InterfazDao<T> {
     }
 
     public T get(Integer id) throws Exception {
-        return listAll().get(id);
+        return listAll().get(getIndexToOperate(id));
     }
 
     public void persist(T object) throws Exception {
         LinkedList<T> list = listAll();
         list.add(object);
-        String info = g.toJson(list.toArray());
-        saveFile(info);
+        saveFile(list.toArray(),this.currentId);
     }
 
-    public void merge(T object, Integer index) throws Exception {
+    public void merge(T object, Integer id) throws Exception {
         LinkedList<T> list = listAll();
-        list.update(object, index);
-        String data = g.toJson(list.toArray());
-        saveFile(data);
+        list.update(object, getIndexToOperate(id));
+        saveFile(list.toArray(),this.currentId);
     }
 
-    protected String readFile() throws Exception {
-        Scanner in = new Scanner(new FileReader(URL + clazz.getSimpleName() + ".json"));
+    public void remove(Integer id) throws Exception {
+        LinkedList<T> list = listAll();
+        list.delete(getIndexToOperate(id));
+        saveFile(list.toArray(),this.currentId);
+    }
+
+    protected  String readFile() throws Exception {
         StringBuilder sb = new StringBuilder();
-        while (in.hasNext()) {
-            sb.append(in.next());
+        try(BufferedReader bf = new BufferedReader(
+            new FileReader(URL + modelClass.getSimpleName() + ".json")) )
+        {
+            String line;
+            while((line = bf.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            e.printStackTrace();    
         }
-        in.close();
-        return sb.toString();
+        return null;
     }
 
-    protected void saveFile(String data) throws Exception {
-        FileWriter f = new FileWriter(URL + clazz.getSimpleName() + ".json");
-        f.write(data);
-        f.flush();
-        f.close();
+    protected void saveFile(T[] objects, Integer currentId) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        HashMap<String,Object> dataMap = new HashMap<>();
+        dataMap.put("className",modelClass.getSimpleName());
+        dataMap.put("currentId",currentId);
+        dataMap.put("objects",objects);
+
+        try(FileWriter f = new FileWriter(URL + modelClass.getSimpleName() + ".json")) {
+                f.write(gson.toJson(dataMap));
+                f.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    protected void saveFile(T[] objects) {
+        saveFile(objects,this.currentId);
+    } 
 }

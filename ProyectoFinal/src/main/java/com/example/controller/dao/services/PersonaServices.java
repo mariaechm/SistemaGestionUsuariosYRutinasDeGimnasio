@@ -17,9 +17,18 @@ import com.example.models.enumerator.TipoIdentificacion;
 public class PersonaServices {
     private PersonaDao obj;
 
+    // Constructors -----------------------------------------------------
+
     public PersonaServices() {
         this.obj = new PersonaDao();
     }
+
+    public PersonaServices(Integer initialId) throws Exception {
+        this.obj = new PersonaDao(initialId);
+    }
+
+
+    // Model Getters and Setters -----------------------------------------------------
 
     public Persona getPersona() {
         return this.obj.getPersona();
@@ -29,26 +38,34 @@ public class PersonaServices {
         this.obj.setPersona(persona);
     }
 
+    public void personaFromJson(String personaJson) {
+        this.obj.personaFromJson(personaJson);
+    }
+
+    public Persona[] getAllPersonas() throws Exception {
+        System.out.println(obj.getAllPersonas().toArray());
+        return obj.getAllPersonas().toArray();
+    }
+
+    // CRUD Operations -----------------------------------------------------
+
     public Persona getPersonaById(Integer id) throws Exception {
         return this.obj.getPersonaById(id);
     }
 
-    public String getPersonaJsonById(Integer id) throws Exception {
-        return this.obj.getPersonaJsonById(id);
+    public void save() throws Exception {
+        this.obj.save();
     }
 
-    public Boolean save() throws Exception {
-        return this.obj.save();
+    public void update() throws Exception {
+        this.obj.updatePersona();
     }
 
-    public void update(Persona persona) throws Exception {
-        this.obj.updatePersona(persona);
-    }
-
-    public void delete(Integer id) throws Exception {
+    public void deletePersona(Integer id) throws Exception {
         this.obj.deletePersona(id);
     }
 
+    //Enumerations -----------------------------------------------------
     public Genero[] generos() {
         return this.obj.generos();
     }

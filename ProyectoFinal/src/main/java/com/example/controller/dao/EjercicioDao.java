@@ -1,9 +1,13 @@
 package com.example.controller.dao;
 
+import java.lang.reflect.Type;
+
 import com.example.controller.dao.implement.AdapterDao;
+import com.example.controller.dao.implement.JsonData;
 import com.example.controller.tda.list.LinkedList;
 import com.example.models.Ejercicio;
 import com.example.models.enumerator.TipoEjercicio;
+import com.google.gson.reflect.TypeToken;
 
 public class EjercicioDao extends AdapterDao<Ejercicio>{
     private Ejercicio ejercicio;
@@ -11,6 +15,22 @@ public class EjercicioDao extends AdapterDao<Ejercicio>{
 
     public EjercicioDao() {
         super(Ejercicio.class);
+    }
+
+    protected Integer getIndexToOperate(Integer id) throws Exception {
+        Ejercicio[] array = listAll().toArray();
+        for(int i = 0; i < array.length; i++) {
+            if(array[i].getId().equals(id)) {
+                return i;
+            }
+        }
+        throw new Exception("IdNotFound");
+    }
+
+    protected JsonData<Ejercicio> readFileAsJsonData() throws Exception {
+        Type jsonDataType = new TypeToken<JsonData<Ejercicio>>(){}.getType();
+        JsonData<Ejercicio> jsonData = g.fromJson(readFile(), jsonDataType);
+        return jsonData;
     }
 
     public Ejercicio getEjercicio() {
@@ -49,11 +69,6 @@ public class EjercicioDao extends AdapterDao<Ejercicio>{
 
     public void updateEjercicio(Integer id) throws Exception {
         this.merge(this.ejercicio, id);
-    }
-
-    public void deleteEjercicio(Integer id) throws Exception {
-        this.listAll = listAll();
-        delete(id, g.toJson(listAll.toArray()));
     }
 
     public String toJson() {

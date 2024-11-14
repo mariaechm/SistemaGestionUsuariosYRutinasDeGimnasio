@@ -42,11 +42,16 @@ public class LinkedList<E> {
         if (isEmpty()) {
             addHeader(info);
         } else {
-            help = new Node<>(info, null);
-            last.setNext(help);
-            last = help;
-            this.size++;
+            if(this.last == null) {
+                this.header.setNext(new Node<>(info));
+                this.last = this.header.getNext();
+            } else {
+                help = new Node<>(info);
+                this.last.setNext(help);
+                this.last = this.last.getNext();
+            }
         }
+        this.size++;
     }
 
     public void add(E info) {
@@ -152,7 +157,7 @@ public class LinkedList<E> {
     public void delete(Integer index) throws Exception {
         if(isEmpty()) {
             throw new ListEmptyException("Cannot delete, LinkedList is empty");
-        } else if(index < 0 || index >= this.size-1) {
+        } else if(index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException("Cannot delete, index out bounds");
         } else if(index == 0) {
             this.deleteHeader();
@@ -200,7 +205,7 @@ public class LinkedList<E> {
         return this.size;
     }
 
-    public E[] toArray(){
+    public E[] toArray() {
         E[] matrix;
         if (!isEmpty()) {
             Class<?> clazz = header.getInfo().getClass();
@@ -212,12 +217,12 @@ public class LinkedList<E> {
                 matrix[i] = aux.getInfo();
                 aux = aux.getNext();
             }
+            return matrix;
         } else {
             @SuppressWarnings("unchecked")
-            E[] matrix1 = (E[])Array.newInstance(this.header.getInfo().getClass(), 0);
+            E[] matrix1 = (E[])Array.newInstance(Object.class, 0);
             return matrix1;
         }
-        return matrix;
     }
 
     public LinkedList<E> toList(E[] matrix){

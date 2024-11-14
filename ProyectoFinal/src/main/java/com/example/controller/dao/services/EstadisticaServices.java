@@ -11,7 +11,6 @@ package com.example.controller.dao.services;
 import com.example.controller.dao.EstadisticaDao;
 import com.example.models.Estadistica;
 import java.sql.SQLException;
-import java.util.List;
 
 public class EstadisticaServices {
     private final EstadisticaDao estadisticaDAO;
