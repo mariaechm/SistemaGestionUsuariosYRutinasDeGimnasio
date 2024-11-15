@@ -13,6 +13,7 @@ public class EjercicioDao extends AdapterDao<Ejercicio>{
     private Ejercicio ejercicio;
     private LinkedList<Ejercicio> listAll;
 
+    @Deprecated
     public EjercicioDao() {
         super(Ejercicio.class);
     }

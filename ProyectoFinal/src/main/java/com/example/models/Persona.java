@@ -19,7 +19,7 @@ public class Persona {
     private String fechaNacimiento;
     private String direccion;
     private Rol rol;
-    private Genero genero;
+    private Genero genero; 
 
     public Persona() {}
 

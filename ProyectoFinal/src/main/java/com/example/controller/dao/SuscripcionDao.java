@@ -16,6 +16,7 @@ import com.google.gson.reflect.TypeToken;
 public class SuscripcionDao extends AdapterDao<Suscripcion> {
     private  Suscripcion suscripcion;
     
+    @Deprecated   
     public SuscripcionDao() {
         super(Suscripcion.class);
     }

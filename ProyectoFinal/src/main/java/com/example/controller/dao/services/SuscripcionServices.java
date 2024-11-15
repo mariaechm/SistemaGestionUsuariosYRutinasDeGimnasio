@@ -15,6 +15,7 @@ import com.example.models.enumerator.TipoSuscripcion;
 public class SuscripcionServices {
     private  SuscripcionDao obj;
 
+    @Deprecated   
     public SuscripcionServices() {
         this.obj = new SuscripcionDao();
     }

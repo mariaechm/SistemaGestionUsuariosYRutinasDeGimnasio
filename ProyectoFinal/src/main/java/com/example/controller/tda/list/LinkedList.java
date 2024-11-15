@@ -28,7 +28,6 @@ public class LinkedList<E> {
         if (isEmpty()) {
             help = new Node<>(dato);
             header = help;
-
         } else {
             Node<E> healpHeader = this.header;
             help = new Node<>(dato, healpHeader);
@@ -50,8 +49,8 @@ public class LinkedList<E> {
                 this.last.setNext(help);
                 this.last = this.last.getNext();
             }
+            this.size++;
         }
-        this.size++;
     }
 
     public void add(E info) {
@@ -147,8 +146,9 @@ public class LinkedList<E> {
             } else { 
                 Node<E> delete = this.last;
                 delete.setNext(null);
-                this.last = this.getNode(size-2);
+                this.last = this.getNode(this.size-2);
                 delete = null;
+                this.last.setNext(null);
                 this.size--;
             }
         }
@@ -205,23 +205,21 @@ public class LinkedList<E> {
         return this.size;
     }
 
-    public E[] toArray() {
+    public E[] toArray() throws Exception {
         E[] matrix;
         if (!isEmpty()) {
             Class<?> clazz = header.getInfo().getClass();
             @SuppressWarnings("unchecked")
-            E[] matrix1 = (E[]) java.lang.reflect.Array.newInstance(clazz, size);
+            E[] matrix1 = (E[]) Array.newInstance(clazz, size);
             matrix = matrix1;
-            Node<E> aux = header;
-            for(int i=0; i<size; i++){
+            Node<E> aux = this.header;
+            for(int i = 0; i < this.size; i++){
                 matrix[i] = aux.getInfo();
                 aux = aux.getNext();
             }
             return matrix;
         } else {
-            @SuppressWarnings("unchecked")
-            E[] matrix1 = (E[])Array.newInstance(Object.class, 0);
-            return matrix1;
+            throw new ListEmptyException("List is empty");
         }
     }
 

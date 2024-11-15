@@ -1,0 +1,20 @@
+{
+  "currentId": 8,
+  "objects": [
+    {
+      "id": 5,
+      "correoElectronico": "basura.cesabo@example.com",
+      "password": "contrasenabasura",
+      "fechaCreacion": "2024-11-14",
+      "personaId": 17
+    },
+    {
+      "id": 8,
+      "correoElectronico": "basura.cesabo@example.com",
+      "password": "contrasenabasura",
+      "fechaCreacion": "2024-11-14",
+      "personaId": 4
+    }
+  ],
+  "className": "Cuenta"
+}

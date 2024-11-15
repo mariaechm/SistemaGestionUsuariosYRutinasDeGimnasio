@@ -1,5 +1,54 @@
 {
-  "className": "Persona",
-  "currentId": 0,
-  "objects": []
+  "currentId": 17,
+  "objects": [
+    {
+      "id": 1,
+      "nombre": "Juan Pablo",
+      "apellido": "Cevallos Armijos",
+      "identificacion": "6110243434",
+      "tipoIdentificacion": "CEDULA",
+      "celular": "0894485858",
+      "fechaNacimiento": "2005-09-08",
+      "direccion": "Av. Occidental",
+      "rol": "ADMINISTRADOR",
+      "genero": "HOMBRE"
+    },
+    {
+      "id": 2,
+      "nombre": "Erika Sofía",
+      "apellido": "Torres Serrano",
+      "identificacion": "6110243434",
+      "tipoIdentificacion": "PASAPORTE",
+      "celular": "0894485858",
+      "fechaNacimiento": "2005-09-08",
+      "direccion": "Av. Pio Jaramillo",
+      "rol": "CLIENTE",
+      "genero": "MUJER"
+    },
+    {
+      "id": 4,
+      "nombre": "Nataly Samantha",
+      "apellido": "Rios Rodriguez",
+      "identificacion": "6110243434B",
+      "tipoIdentificacion": "RUC",
+      "celular": "0894485858",
+      "fechaNacimiento": "1999-05-21",
+      "direccion": "18 de Noviembre y Azuay esquina",
+      "rol": "CLIENTE",
+      "genero": "MUJER"
+    },
+    {
+      "id": 17,
+      "nombre": "Basura Basura",
+      "apellido": "Basura Basura",
+      "identificacion": "6110243434B",
+      "tipoIdentificacion": "RUC",
+      "celular": "0894485858",
+      "fechaNacimiento": "Kasu",
+      "direccion": "Trash",
+      "rol": "CLIENTE",
+      "genero": "OTRO"
+    }
+  ],
+  "className": "Persona"
 }

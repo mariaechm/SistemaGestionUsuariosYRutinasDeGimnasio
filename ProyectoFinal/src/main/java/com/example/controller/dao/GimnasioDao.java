@@ -15,6 +15,7 @@ import com.google.gson.reflect.TypeToken;
 public class GimnasioDao extends AdapterDao<Gimnasio> {
     private Gimnasio gimnasio;
     
+    @Deprecated
     public GimnasioDao() {
         super(Gimnasio.class);
     }

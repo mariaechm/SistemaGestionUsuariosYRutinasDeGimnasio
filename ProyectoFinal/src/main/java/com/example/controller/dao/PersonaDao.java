@@ -15,7 +15,8 @@ import com.google.gson.reflect.TypeToken;
 public class PersonaDao extends AdapterDao<Persona> {
     private Persona persona;
 
-    // Constructors ------------------------------------------------------------    
+    // Constructors ------------------------------------------------------------
+    @Deprecated    
     public PersonaDao() {
         super(Persona.class);
     }
@@ -54,8 +55,7 @@ public class PersonaDao extends AdapterDao<Persona> {
         this.persona = persona;
     }
 
-    public LinkedList<Persona> getAllPersonas() {
-        System.out.println(this.listAll().toArray());
+    public LinkedList<Persona> getAllPersonas() throws Exception {
         return this.listAll();
     }
 
@@ -86,6 +86,7 @@ public class PersonaDao extends AdapterDao<Persona> {
     }
 
     // Enumerations ------------------------------------------------------------
+    
     public Genero[] generos() {
         return Genero.values();
     }

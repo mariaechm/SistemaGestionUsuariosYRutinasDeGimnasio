@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.example.controller.dao.services.PersonaServices;
-import com.example.controller.exception.ListEmptyException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  *
@@ -39,10 +38,6 @@ public class PersonaApi {
             return Response.ok(om.writeValueAsString(responseMap)).build();
         } catch (Exception e) {
             e.printStackTrace();
-            if(e.getClass() == ListEmptyException.class) {
-                responseMap.put("data","nothing");
-                return Response.ok(om.writeValueAsString(responseMap)).build();
-            } 
             responseMap.put("status","ERROR");
             responseMap.put("data",e.getMessage());
             return Response.status(Status.INTERNAL_SERVER_ERROR)
@@ -141,5 +136,32 @@ public class PersonaApi {
         }
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/enumerations")
+    public Response enumerations() throws Exception {
+        PersonaServices ps = new PersonaServices(0);
+        HashMap<String,Object> responseMap = new HashMap<>();
+        HashMap<String,Object> enumerations = new HashMap<>();
+        ObjectMapper om = new ObjectMapper();
+
+        try {
+            enumerations.put("tiposIdentificacion", ps.tiposIdentificacion());
+            enumerations.put("roles",ps.roles());
+            enumerations.put("generos", ps.generos());
+
+            responseMap.put("status", "OK");
+            responseMap.put("data",enumerations);
+
+            return Response.ok(om.writeValueAsString(responseMap)).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseMap.put("status", "ERROR");
+            responseMap.put("data", e.getMessage());
+
+            return Response.status(Status.INTERNAL_SERVER_ERROR)
+            .entity(responseMap).build();
+        }
+    }
 
 }

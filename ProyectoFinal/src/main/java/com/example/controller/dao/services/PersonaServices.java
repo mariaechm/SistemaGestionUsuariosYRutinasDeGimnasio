@@ -4,21 +4,21 @@
  */
 package com.example.controller.dao.services;
 
+import java.lang.reflect.Array;
+
 import com.example.controller.dao.PersonaDao;
 import com.example.models.Persona;
 import com.example.models.enumerator.Genero;
 import com.example.models.enumerator.Rol;
 import com.example.models.enumerator.TipoIdentificacion;
 
-/**
- *
- * @author maria-chuico
- */
+
 public class PersonaServices {
     private PersonaDao obj;
 
     // Constructors -----------------------------------------------------
 
+    @Deprecated   
     public PersonaServices() {
         this.obj = new PersonaDao();
     }
@@ -43,8 +43,11 @@ public class PersonaServices {
     }
 
     public Persona[] getAllPersonas() throws Exception {
-        System.out.println(obj.getAllPersonas().toArray());
-        return obj.getAllPersonas().toArray();
+        try {
+            return obj.getAllPersonas().toArray(); 
+        } catch (Exception e) {
+            return (Persona[])Array.newInstance(Persona.class, 0);
+        }
     }
 
     // CRUD Operations -----------------------------------------------------
@@ -62,6 +65,9 @@ public class PersonaServices {
     }
 
     public void deletePersona(Integer id) throws Exception {
+        // Mantener la consistencia de los datos
+        CuentaServices cd = new CuentaServices(0);
+        cd.cascade(id); // Se elimina la cuenta que tenía el id Persona
         this.obj.deletePersona(id);
     }
 
@@ -77,4 +83,5 @@ public class PersonaServices {
     public TipoIdentificacion[] tiposIdentificacion() {
         return this.obj.tiposIdentificaion();
     }
+
 }

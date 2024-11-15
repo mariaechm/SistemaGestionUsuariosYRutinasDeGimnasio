@@ -12,6 +12,7 @@ public class SerieDao extends AdapterDao<Serie>{
     private Serie serie;
     private LinkedList<Serie> listAll;
 
+    @Deprecated   
     public SerieDao() {
         super(Serie.class);
     }

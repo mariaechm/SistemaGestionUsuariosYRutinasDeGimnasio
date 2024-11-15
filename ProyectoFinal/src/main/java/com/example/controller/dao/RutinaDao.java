@@ -14,6 +14,7 @@ public class RutinaDao extends AdapterDao<Rutina> {
     private Rutina rutina;
     private LinkedList<Rutina> listAll;
 
+    @Deprecated   
     public RutinaDao() {
         super(Rutina.class);
     }

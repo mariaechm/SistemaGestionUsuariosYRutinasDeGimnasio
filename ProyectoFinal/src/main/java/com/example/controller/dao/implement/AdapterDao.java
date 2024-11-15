@@ -21,12 +21,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public abstract class AdapterDao<T> implements InterfazDao<T> {
-
+    // Attributes -----------------------------------------------
     private Class<?> modelClass;
     protected Gson g;
     public static String URL = "media/";
     protected Integer currentId;
 
+    // Constructors -----------------------------------------------
+    @Deprecated
     public AdapterDao(Class<?> modelClass) {
         this.modelClass = modelClass;
         g = new Gson();
@@ -37,26 +39,33 @@ public abstract class AdapterDao<T> implements InterfazDao<T> {
         this.currentId = readContador(contadorId);
     }
 
+    // Abstract Methods -----------------------------------------------
+
     protected abstract Integer getIndexToOperate(Integer id) throws Exception;
     protected abstract JsonData<T> readFileAsJsonData() throws Exception;  
+
+    // Especial Construct Method -----------------------------------------------
 
     private Integer readContador(Integer initialId) throws Exception {
         Integer contador_Id;
         try {
             if(readFileAsJsonData().getCurrentId() == null) {
                 @SuppressWarnings("unchecked")
-                T[] array = (T[])Array.newInstance(modelClass, 0);
+                T[] array = (T[])Array.newInstance(modelClass, initialId);
                 saveFile(array,initialId);
             }
             contador_Id = readFileAsJsonData().getCurrentId();
         } catch (Exception e) {
+            e.printStackTrace();
             @SuppressWarnings("unchecked")
-                T[] array = (T[])Array.newInstance(modelClass, 0);
+                T[] array = (T[])Array.newInstance(modelClass, initialId);
             saveFile(array,initialId);
             contador_Id = readFileAsJsonData().getCurrentId();
         }
         return contador_Id;
     }
+
+    // Interface Methods ---------------------------------------------------------
 
     public LinkedList<T> listAll() {
         LinkedList<T> list = new LinkedList<>();
@@ -90,6 +99,8 @@ public abstract class AdapterDao<T> implements InterfazDao<T> {
         list.delete(getIndexToOperate(id));
         saveFile(list.toArray(),this.currentId);
     }
+
+    // File Managment Methods ----------------------------------------------------  
 
     protected  String readFile() throws Exception {
         StringBuilder sb = new StringBuilder();
