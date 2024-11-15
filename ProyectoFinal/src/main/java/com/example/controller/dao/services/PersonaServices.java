@@ -72,6 +72,7 @@ public class PersonaServices {
     }
 
     //Enumerations -----------------------------------------------------
+
     public Genero[] generos() {
         return this.obj.generos();
     }

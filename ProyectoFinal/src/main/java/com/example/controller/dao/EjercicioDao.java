@@ -6,17 +6,23 @@ import com.example.controller.dao.implement.AdapterDao;
 import com.example.controller.dao.implement.JsonData;
 import com.example.controller.tda.list.LinkedList;
 import com.example.models.Ejercicio;
-import com.example.models.enumerator.TipoEjercicio;
 import com.google.gson.reflect.TypeToken;
 
-public class EjercicioDao extends AdapterDao<Ejercicio>{
-    private Ejercicio ejercicio;
-    private LinkedList<Ejercicio> listAll;
 
-    @Deprecated
+public class EjercicioDao extends AdapterDao<Ejercicio> {
+    private Ejercicio ejercicio;
+
+    // Constructors ------------------------------------------------------------ 
+    @Deprecated   
     public EjercicioDao() {
         super(Ejercicio.class);
     }
+
+    public EjercicioDao(Integer initialId) throws Exception {
+        super(Ejercicio.class,initialId);
+    }
+
+    // Abstract Methods ------------------------------------------------------------
 
     protected Integer getIndexToOperate(Integer id) throws Exception {
         Ejercicio[] array = listAll().toArray();
@@ -34,6 +40,8 @@ public class EjercicioDao extends AdapterDao<Ejercicio>{
         return jsonData;
     }
 
+    // Access Methods ------------------------------------------------------------
+
     public Ejercicio getEjercicio() {
         if(this.ejercicio == null) {
             this.ejercicio = new Ejercicio();
@@ -45,48 +53,33 @@ public class EjercicioDao extends AdapterDao<Ejercicio>{
         this.ejercicio = ejercicio;
     }
 
-    public LinkedList<Ejercicio> getListAll() {
-        if(this.listAll == null) {
-            this.listAll = listAll();
-        }
-        return this.listAll;
+    public LinkedList<Ejercicio> getAllEjercicios() throws Exception {
+        return this.listAll();
     }
 
-    public Ejercicio getIdEjercicio(Integer id) throws Exception {
+    public void ejercicioFromJson(String ejercicioJson) {
+        this.ejercicio = g.fromJson(ejercicioJson, Ejercicio.class);
+    }
+
+    // CRUD Operations ------------------------------------------------------------
+
+    public Ejercicio getEjercicioById(Integer id) throws Exception {
         return get(id);
     }
 
-    public String getIdEjercicioJson(Integer id) throws Exception {
-        return g.toJson(getIdEjercicioJson(id));
+    public void save() throws Exception {
+        currentId++;
+        Integer id = currentId;
+        this.getEjercicio().setId(id);
+        persist(this.ejercicio);
     }
 
-    public Boolean save() throws Exception {
-        Integer id = listAll().getSize()+1;
-        getEjercicio().setId(id);
-        this.persist(this.ejercicio);
-        this.listAll = listAll();
-        return true;
+    public void deleteEjercicio(Integer id) throws Exception {
+        remove(id);
     }
 
-    public void updateEjercicio(Integer id) throws Exception {
-        this.merge(this.ejercicio, id);
+    public void updateEjercicio() throws Exception {
+        final Integer id = getEjercicio().getId();
+        merge(getEjercicio(), id);
     }
-
-    public String toJson() {
-        return g.toJson(getEjercicio());
-    }
-
-    public Ejercicio EjercicioFromJson(String json) {
-        return g.fromJson(json, Ejercicio.class);
-    }
-
-    public TipoEjercicio getTipoEjercicio(String tipo) {
-        return TipoEjercicio.valueOf(tipo);
-    }
-
-    public TipoEjercicio[] getTipos() {
-        return TipoEjercicio.values();
-    }
-
 }
-
