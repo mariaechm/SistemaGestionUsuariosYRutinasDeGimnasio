@@ -29,12 +29,12 @@ public class CuentaServices {
         return this.obj.getCuenta();
     }
 
-    public void setCuenta(Cuenta Cuenta) {
-        this.obj.setCuenta(Cuenta);
+    public void setCuenta(Cuenta cuenta) {
+        this.obj.setCuenta(cuenta);
     }
 
-    public void CuentaFromJson(String CuentaJson) {
-        this.obj.CuentaFromJson(CuentaJson);
+    public void cuentaFromJson(String cuentaJson) {
+        this.obj.cuentaFromJson(cuentaJson);
     }
 
     public Cuenta[] getAllCuentas() throws Exception {
@@ -64,7 +64,9 @@ public class CuentaServices {
     }    
 
     // Persona Relationship -----------------------------------------------
+
     public void cascade(Integer personaId) throws Exception {
-        obj.cascade(personaId);
+        this.obj.cascade(personaId);
     }
+
 }

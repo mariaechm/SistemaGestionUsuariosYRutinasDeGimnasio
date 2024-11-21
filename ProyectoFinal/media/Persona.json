@@ -1,5 +1,5 @@
 {
-  "currentId": 17,
+  "currentId": 22,
   "objects": [
     {
       "id": 1,
@@ -46,6 +46,54 @@
       "celular": "0894485858",
       "fechaNacimiento": "Kasu",
       "direccion": "Trash",
+      "rol": "CLIENTE",
+      "genero": "OTRO"
+    },
+    {
+      "id": 19,
+      "nombre": "Thomas Alejandro",
+      "apellido": "Rivera Gonzáles",
+      "identificacion": "5775748839",
+      "tipoIdentificacion": "CEDULA",
+      "celular": "0974652345",
+      "fechaNacimiento": "2005-04-04",
+      "direccion": "Av. Cuxibamba",
+      "rol": "CLIENTE",
+      "genero": "OTRO"
+    },
+    {
+      "id": 20,
+      "nombre": "Jonás Alberto",
+      "apellido": "Santos Díaz",
+      "identificacion": "57734448839",
+      "tipoIdentificacion": "CEDULA",
+      "celular": "09746524575",
+      "fechaNacimiento": "2005-07-10",
+      "direccion": "Av. Cuxibamba",
+      "rol": "ADMINISTRADOR",
+      "genero": "OTRO"
+    },
+    {
+      "id": 21,
+      "nombre": "Nataly Samantha",
+      "apellido": "Rios Rodriguez",
+      "identificacion": "6110243434B",
+      "tipoIdentificacion": "RUC",
+      "celular": "0894485858",
+      "fechaNacimiento": "1999-05-21",
+      "direccion": "18 de Noviembre y Azuay esquina",
+      "rol": "CLIENTE",
+      "genero": "MUJER"
+    },
+    {
+      "id": 22,
+      "nombre": "Cesar",
+      "apellido": "Lepeza",
+      "identificacion": "61102434343",
+      "tipoIdentificacion": "PASAPORTE",
+      "celular": "0894485858",
+      "fechaNacimiento": "2005-09-03",
+      "direccion": "Belén Plateado",
       "rol": "CLIENTE",
       "genero": "OTRO"
     }

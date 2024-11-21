@@ -65,7 +65,7 @@ public abstract class AdapterDao<T> implements InterfazDao<T> {
         return contador_Id;
     }
 
-    // Interface Methods ---------------------------------------------------------
+    // Interface Methods CRUD ---------------------------------------------------------
 
     public LinkedList<T> listAll() {
         LinkedList<T> list = new LinkedList<>();

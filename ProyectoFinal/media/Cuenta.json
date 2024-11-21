@@ -1,5 +1,5 @@
 {
-  "currentId": 8,
+  "currentId": 9,
   "objects": [
     {
       "id": 5,
@@ -14,6 +14,13 @@
       "password": "contrasenabasura",
       "fechaCreacion": "2024-11-14",
       "personaId": 4
+    },
+    {
+      "id": 9,
+      "correoElectronico": "HOLA@DDD.COM",
+      "password": "DKFJLSDKF",
+      "fechaCreacion": "2024-11-21",
+      "personaId": 22
     }
   ],
   "className": "Cuenta"

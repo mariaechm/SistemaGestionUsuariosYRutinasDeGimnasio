@@ -4,6 +4,7 @@ import java.lang.reflect.Type;
 
 import com.example.controller.dao.implement.AdapterDao;
 import com.example.controller.dao.implement.JsonData;
+import com.example.controller.dao.services.CuentaServices;
 import com.example.controller.tda.list.LinkedList;
 import com.example.models.Persona;
 import com.example.models.enumerator.Genero;
@@ -16,6 +17,7 @@ public class PersonaDao extends AdapterDao<Persona> {
     private Persona persona;
 
     // Constructors ------------------------------------------------------------
+    
     @Deprecated    
     public PersonaDao() {
         super(Persona.class);
@@ -26,6 +28,7 @@ public class PersonaDao extends AdapterDao<Persona> {
     }
 
     // Abstract Methods ------------------------------------------------------------
+
     protected Integer getIndexToOperate(Integer id) throws Exception {
         Persona[] personas = listAll().toArray();
         for(int i = 0; i < personas.length; i++) {
@@ -71,12 +74,19 @@ public class PersonaDao extends AdapterDao<Persona> {
 
     public void save() throws Exception {
         currentId++;
-        Integer id = currentId; // Atribute of AdapterDao
+        Integer id = currentId; 
         this.getPersona().setId(id);
         persist(this.persona);
     }
 
     public void deletePersona(Integer id) throws Exception {
+        // Mantener la consistencia de los datos
+        CuentaServices cs = new CuentaServices(0);
+        try {
+            cs.cascade(id); // Se elimina la cuenta que tenía el id Persona
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         remove(id);
     }
 

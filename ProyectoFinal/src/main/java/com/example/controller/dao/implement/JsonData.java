@@ -1,9 +1,9 @@
 package com.example.controller.dao.implement;
 
-public class JsonData<T> {
+public class JsonData<K> {
     private Integer currentId;
     private String className;
-    private T[] objects;
+    private K[] objects;
 
     public JsonData() {}
 
@@ -23,11 +23,11 @@ public class JsonData<T> {
         this.currentId = currentId;
     }
 
-    public T[] getObjects() {
+    public K[] getObjects() {
         return objects;
     }
 
-    public void setObjects(T[] objects) {
+    public void setObjects(K[] objects) {
         this.objects = objects;
     }  
     

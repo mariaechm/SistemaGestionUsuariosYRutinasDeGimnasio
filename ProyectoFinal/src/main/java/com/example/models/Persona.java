@@ -94,11 +94,11 @@ public class Persona {
         this.rol = rol;
     }
 
-    public TipoIdentificacion getTipoIdentificaion() {
+    public TipoIdentificacion getTipoIdentificacion() {
         return tipoIdentificacion;
     }
 
-    public void setTipoIdentificaion(TipoIdentificacion tipoIdentificaion) {
-        this.tipoIdentificacion = tipoIdentificaion;
+    public void setTipoIdentificacion(TipoIdentificacion tipoIdentificacion) {
+        this.tipoIdentificacion = tipoIdentificacion;
     }
 }

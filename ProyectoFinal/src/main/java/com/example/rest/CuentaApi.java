@@ -55,7 +55,7 @@ public class CuentaApi {
         ObjectMapper om = new ObjectMapper();
 
         try {
-            cs.CuentaFromJson(cuentaJson);
+            cs.cuentaFromJson(cuentaJson);
             cs.save();
             responseMap.put("status","OK");
             responseMap.put("data",cs.getCuenta());
@@ -127,7 +127,7 @@ public class CuentaApi {
         ObjectMapper om = new ObjectMapper();
 
         try {
-            cs.CuentaFromJson(cuentaJson);
+            cs.cuentaFromJson(cuentaJson);
             cs.update();
             responseMap.put("status","OK");
             responseMap.put("data",cs.getCuenta());

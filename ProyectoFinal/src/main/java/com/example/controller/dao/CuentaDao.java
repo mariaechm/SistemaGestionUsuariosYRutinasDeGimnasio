@@ -58,7 +58,7 @@ public class CuentaDao extends AdapterDao<Cuenta> {
         return this.listAll();
     }
 
-    public void CuentaFromJson(String cuentaJson) {
+    public void cuentaFromJson(String cuentaJson) {
         this.cuenta = g.fromJson(cuentaJson, Cuenta.class);
     }
 
@@ -122,5 +122,7 @@ public class CuentaDao extends AdapterDao<Cuenta> {
     public void cascade(Integer personaId) throws Exception {
         //        -> Leer Archivo --> ObtenerArray -> Buscar cuenta con persId -> obtener cuentaId
         deleteCuenta(readFileAsJsonData().getObjects()[searchPersonaIdInCuentaList(personaId)].getId());
+        // El método deleteCuenta funciona por id
     }
+
 }

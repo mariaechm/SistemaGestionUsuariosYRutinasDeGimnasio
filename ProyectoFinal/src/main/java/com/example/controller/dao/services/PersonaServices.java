@@ -64,10 +64,7 @@ public class PersonaServices {
         this.obj.updatePersona();
     }
 
-    public void deletePersona(Integer id) throws Exception {
-        // Mantener la consistencia de los datos
-        CuentaServices cd = new CuentaServices(0);
-        cd.cascade(id); // Se elimina la cuenta que tenía el id Persona
+    public void deletePersona(Integer id) throws Exception {        
         this.obj.deletePersona(id);
     }
 
