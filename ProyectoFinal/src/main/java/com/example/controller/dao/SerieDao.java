@@ -1,37 +1,13 @@
 package com.example.controller.dao;
 
-import java.lang.reflect.Type;
-
 import com.example.controller.dao.implement.AdapterDao;
-import com.example.controller.dao.implement.JsonData;
 import com.example.controller.tda.list.LinkedList;
 import com.example.models.Serie;
-import com.google.gson.reflect.TypeToken;
+
 
 public class SerieDao extends AdapterDao<Serie>{
     private Serie serie;
     private LinkedList<Serie> listAll;
-
-    @Deprecated   
-    public SerieDao() {
-        super(Serie.class);
-    }
-    
-     protected Integer getIndexToOperate(Integer id) throws Exception {
-        Serie[] array = listAll().toArray();
-        for(int i = 0; i < array.length; i++) {
-            if(array[i].getId().equals(id)) {
-                return i;
-            }
-        }
-        throw new Exception("IdNotFound");
-    }
-
-    protected JsonData<Serie> readFileAsJsonData() throws Exception {
-        Type jsonDataType = new TypeToken<JsonData<Serie>>(){}.getType();
-        JsonData<Serie> jsonData = g.fromJson(readFile(), jsonDataType);
-        return jsonData;
-    }
 
     public Serie getSerie() {
         if(this.serie == null) {

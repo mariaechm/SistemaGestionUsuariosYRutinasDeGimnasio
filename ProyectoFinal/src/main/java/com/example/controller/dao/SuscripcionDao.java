@@ -4,37 +4,18 @@ package com.example.controller.dao;
  * @autor Grupo6
  */
 
-import java.lang.reflect.Type;
-
 import com.example.controller.dao.implement.AdapterDao;
-import com.example.controller.dao.implement.JsonData;
 import com.example.controller.tda.list.LinkedList;
 import com.example.models.Suscripcion;
 import com.example.models.enumerator.TipoSuscripcion;
-import com.google.gson.reflect.TypeToken;
+
 
 public class SuscripcionDao extends AdapterDao<Suscripcion> {
     private  Suscripcion suscripcion;
     
-    @Deprecated   
+
     public SuscripcionDao() {
         super(Suscripcion.class);
-    }
-
-     protected Integer getIndexToOperate(Integer id) throws Exception {
-        Suscripcion[] array = listAll().toArray();
-        for(int i = 0; i < array.length; i++) {
-            if(array[i].getId().equals(id)) {
-                return i;
-            }
-        }
-        throw new Exception("IdNotFound");
-    }
-
-    protected JsonData<Suscripcion> readFileAsJsonData() throws Exception {
-        Type jsonDataType = new TypeToken<JsonData<Suscripcion>>(){}.getType();
-        JsonData<Suscripcion> jsonData = g.fromJson(readFile(), jsonDataType);
-        return jsonData;
     }
     
     public Suscripcion getSuscripcion() {

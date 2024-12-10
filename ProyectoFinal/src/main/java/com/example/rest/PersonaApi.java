@@ -28,7 +28,7 @@ public class PersonaApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/all")
     public Response getAllPersonas() throws Exception {
-        PersonaServices ps = new PersonaServices(0);
+        PersonaServices ps = new PersonaServices();
         HashMap<String,Object> responseMap = new HashMap<>();
         ObjectMapper om = new ObjectMapper();
 
@@ -50,7 +50,7 @@ public class PersonaApi {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/save")
     public Response savePersona(String personaJson) throws Exception {
-        PersonaServices ps = new PersonaServices(0);
+        PersonaServices ps = new PersonaServices();
         HashMap<String,Object> responseMap = new HashMap<>();
         ObjectMapper om = new ObjectMapper();
 
@@ -73,7 +73,7 @@ public class PersonaApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/delete/{id}")
     public Response deletePersona(@PathParam("id") Integer id) throws Exception {
-        PersonaServices ps = new PersonaServices(0);
+        PersonaServices ps = new PersonaServices();
         HashMap<String,Object> responseMap = new HashMap<>();
         ObjectMapper om = new ObjectMapper();
 
@@ -96,7 +96,7 @@ public class PersonaApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/get/{id}")
     public Response getPersonaById(@PathParam("id") Integer id) throws Exception {
-        PersonaServices ps = new PersonaServices(0);
+        PersonaServices ps = new PersonaServices();
         HashMap<String,Object> responseMap = new HashMap<>();
         ObjectMapper om = new ObjectMapper();
 
@@ -118,7 +118,7 @@ public class PersonaApi {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/update/")
     public Response getAllPersonas(String personaJson) throws Exception {
-        PersonaServices ps = new PersonaServices(0);
+        PersonaServices ps = new PersonaServices();
         HashMap<String,Object> responseMap = new HashMap<>();
         ObjectMapper om = new ObjectMapper();
 
@@ -140,7 +140,7 @@ public class PersonaApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/enumerations")
     public Response enumerations() throws Exception {
-        PersonaServices ps = new PersonaServices(0);
+        PersonaServices ps = new PersonaServices();
         HashMap<String,Object> responseMap = new HashMap<>();
         HashMap<String,Object> enumerations = new HashMap<>();
         ObjectMapper om = new ObjectMapper();

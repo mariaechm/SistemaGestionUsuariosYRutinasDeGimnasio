@@ -18,15 +18,9 @@ public class PersonaServices {
 
     // Constructors -----------------------------------------------------
 
-    @Deprecated   
     public PersonaServices() {
         this.obj = new PersonaDao();
     }
-
-    public PersonaServices(Integer initialId) throws Exception {
-        this.obj = new PersonaDao(initialId);
-    }
-
 
     // Model Getters and Setters -----------------------------------------------------
 

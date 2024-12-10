@@ -28,7 +28,7 @@ public class CuentaApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/all")
     public Response getAllCuentas() throws Exception {
-        CuentaServices cs = new CuentaServices(0);
+        CuentaServices cs = new CuentaServices();
         HashMap<String,Object> responseMap = new HashMap<>();
         ObjectMapper om = new ObjectMapper();
 
@@ -50,14 +50,14 @@ public class CuentaApi {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/save")
     public Response saveCuenta(String cuentaJson) throws Exception {
-        CuentaServices cs = new CuentaServices(0);
+        CuentaServices cs = new CuentaServices();
         HashMap<String,Object> responseMap = new HashMap<>();
         ObjectMapper om = new ObjectMapper();
 
         try {
             cs.cuentaFromJson(cuentaJson);
             cs.save();
-            responseMap.put("status","OK");
+            responseMap.put("status","OK"); 
             responseMap.put("data",cs.getCuenta());
             return Response.ok(om.writeValueAsString(responseMap)).build();
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class CuentaApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/delete/{id}")
     public Response deleteCuenta(@PathParam("id") Integer id) throws Exception {
-        CuentaServices cs = new CuentaServices(0);
+        CuentaServices cs = new CuentaServices();
         HashMap<String,Object> responseMap = new HashMap<>();
         ObjectMapper om = new ObjectMapper();
 
@@ -100,7 +100,7 @@ public class CuentaApi {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/get/{id}")
     public Response getCuentaById(@PathParam("id") Integer id) throws Exception {
-        CuentaServices cs = new CuentaServices(0);
+        CuentaServices cs = new CuentaServices();
         HashMap<String,Object> responseMap = new HashMap<>();
         ObjectMapper om = new ObjectMapper();
 
@@ -122,7 +122,7 @@ public class CuentaApi {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/update/")
     public Response getAllCuentas(String cuentaJson) throws Exception {
-        CuentaServices cs = new CuentaServices(0);
+        CuentaServices cs = new CuentaServices();
         HashMap<String,Object> responseMap = new HashMap<>();
         ObjectMapper om = new ObjectMapper();
 

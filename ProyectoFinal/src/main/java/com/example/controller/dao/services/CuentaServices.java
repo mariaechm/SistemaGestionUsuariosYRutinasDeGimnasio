@@ -13,15 +13,9 @@ public class CuentaServices {
     private CuentaDao obj;
 
     // Constructors -----------------------------------------------------
-    @Deprecated
     public CuentaServices() {
         this.obj = new CuentaDao();
     }
-
-    public CuentaServices(Integer initialId) throws Exception {
-        this.obj = new CuentaDao(initialId);
-    }
-
 
     // Model Getters and Setters -----------------------------------------------------
 
@@ -62,11 +56,5 @@ public class CuentaServices {
     public void deleteCuenta(Integer id) throws Exception {
         this.obj.deleteCuenta(id);
     }    
-
-    // Persona Relationship -----------------------------------------------
-
-    public void cascade(Integer personaId) throws Exception {
-        this.obj.cascade(personaId);
-    }
 
 }
