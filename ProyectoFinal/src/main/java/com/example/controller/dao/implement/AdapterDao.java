@@ -13,7 +13,7 @@ import java.util.Scanner;
 import com.example.controller.tda.list.LinkedList;
 import com.google.gson.Gson;
 
-
+@SuppressWarnings("unchecked")
 public abstract class AdapterDao<T> implements InterfazDao<T> {
     private Class<?> clazz;
     protected Gson g;
@@ -33,7 +33,6 @@ public abstract class AdapterDao<T> implements InterfazDao<T> {
         LinkedList<T> list = new LinkedList<>();
         try {
             String data = readFile();
-            @SuppressWarnings("unchecked")
             T[] matrix = (T[]) g.fromJson(data, java.lang.reflect.Array.newInstance(clazz, 0).getClass());
             list.toList(matrix);
         } catch (Exception e) {
