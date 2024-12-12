@@ -4,13 +4,10 @@ import com.example.controller.dao.implement.AdapterDao;
 import com.example.controller.tda.list.LinkedList;
 import com.example.models.Serie;
 
+
 public class SerieDao extends AdapterDao<Serie>{
     private Serie serie;
     private LinkedList<Serie> listAll;
-
-    public SerieDao() {
-        super(Serie.class);
-    }
 
     public Serie getSerie() {
         if(this.serie == null) {
@@ -48,11 +45,6 @@ public class SerieDao extends AdapterDao<Serie>{
 
     public void updateSerie(Integer id) throws Exception {
         this.merge(this.serie, id);
-    }
-
-    public void deleteSerie(Integer id) throws Exception {
-        this.listAll = listAll();
-        delete(id, g.toJson(listAll.toArray()));
     }
 
     public String toJson() {

@@ -1,15 +1,21 @@
 package com.example.controller.dao;
 
+import java.time.LocalDate;
+
 import com.example.controller.dao.implement.AdapterDao;
 import com.example.controller.tda.list.LinkedList;
 import com.example.models.Cuenta;
 
+
 public class CuentaDao extends AdapterDao<Cuenta> {
-     private Cuenta cuenta;
-    
+    private Cuenta cuenta;
+
+    // Constructors ------------------------------------------------------------ 
     public CuentaDao() {
         super(Cuenta.class);
     }
+
+    // Access Methods ------------------------------------------------------------
 
     public Cuenta getCuenta() {
         if(this.cuenta == null) {
@@ -22,38 +28,34 @@ public class CuentaDao extends AdapterDao<Cuenta> {
         this.cuenta = cuenta;
     }
 
+    public LinkedList<Cuenta> getAllCuentas() throws Exception {
+        return this.listAll();
+    }
+
     public void cuentaFromJson(String cuentaJson) {
         this.cuenta = g.fromJson(cuentaJson, Cuenta.class);
     }
+
+    // CRUD Operations ------------------------------------------------------------
 
     public Cuenta getCuentaById(Integer id) throws Exception {
         return get(id);
     }
 
-    public String getCuentaJsonById(Integer id) throws Exception {
-        return g.toJson(this.getCuentaById(id));
-    }
-
-    public Boolean save() throws Exception {
-        Integer id = listAll().getSize() + 1;
+    public void save() throws Exception {
+        Integer id = listAll().getSize() + 1; 
         this.getCuenta().setId(id);
+        this.getCuenta().setFechaCreacion(LocalDate.now().toString());
         persist(this.cuenta);
-        return true;
     }
 
     public void deleteCuenta(Integer id) throws Exception {
-        LinkedList<Cuenta> cuentas = listAll();
-        cuentas.delete(id);
-        String data = g.toJson(cuentas);
-        saveFile(data); 
+        remove(id);
     }
 
-    public void updateCuenta(Cuenta Cuenta) throws Exception {
-        Integer id = cuenta.getId();
-        LinkedList<Cuenta> cuentas = listAll();
-        cuentas.update(Cuenta, id);
-        String data = g.toJson(cuentas);
-        saveFile(data);
+    public void updateCuenta() throws Exception {
+        Integer id = getCuenta().getId();
+        merge(getCuenta(), id);
     }
 
 }

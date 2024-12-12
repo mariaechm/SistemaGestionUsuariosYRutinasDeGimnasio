@@ -4,19 +4,20 @@
  */
 package com.example.controller.dao.services;
 
+import java.lang.reflect.Array;
+
 import com.example.controller.dao.CuentaDao;
 import com.example.models.Cuenta;
 
-/**
- *
- * @author Grupo6
- */
 public class CuentaServices {
     private CuentaDao obj;
 
+    // Constructors -----------------------------------------------------
     public CuentaServices() {
         this.obj = new CuentaDao();
     }
+
+    // Model Getters and Setters -----------------------------------------------------
 
     public Cuenta getCuenta() {
         return this.obj.getCuenta();
@@ -26,23 +27,34 @@ public class CuentaServices {
         this.obj.setCuenta(cuenta);
     }
 
+    public void cuentaFromJson(String cuentaJson) {
+        this.obj.cuentaFromJson(cuentaJson);
+    }
+
+    public Cuenta[] getAllCuentas() throws Exception {
+        try {
+            return obj.getAllCuentas().toArray(); 
+        } catch (Exception e) {
+            return (Cuenta[])Array.newInstance(Cuenta.class, 0);
+        }
+    }
+
+    // CRUD Operations -----------------------------------------------------
+
     public Cuenta getCuentaById(Integer id) throws Exception {
         return this.obj.getCuentaById(id);
     }
 
-    public String getCuentaJsonById(Integer id) throws Exception {
-        return this.obj.getCuentaJsonById(id);
+    public void save() throws Exception {
+        this.obj.save();
     }
 
-    public Boolean save() throws Exception {
-        return this.obj.save();
+    public void update() throws Exception {
+        this.obj.updateCuenta();
     }
 
-    public void update(Cuenta cuenta) throws Exception {
-        this.obj.updateCuenta(cuenta);
-    }
-
-    public void delete(Integer id) throws Exception {
+    public void deleteCuenta(Integer id) throws Exception {
         this.obj.deleteCuenta(id);
-    }
+    }    
+
 }

@@ -4,22 +4,25 @@
  */
 package com.example.controller.dao.services;
 
+import java.lang.reflect.Array;
+
 import com.example.controller.dao.PersonaDao;
 import com.example.models.Persona;
 import com.example.models.enumerator.Genero;
 import com.example.models.enumerator.Rol;
 import com.example.models.enumerator.TipoIdentificacion;
 
-/**
- *
- * @author maria-chuico
- */
+
 public class PersonaServices {
     private PersonaDao obj;
+
+    // Constructors -----------------------------------------------------
 
     public PersonaServices() {
         this.obj = new PersonaDao();
     }
+
+    // Model Getters and Setters -----------------------------------------------------
 
     public Persona getPersona() {
         return this.obj.getPersona();
@@ -29,25 +32,37 @@ public class PersonaServices {
         this.obj.setPersona(persona);
     }
 
+    public void personaFromJson(String personaJson) {
+        this.obj.personaFromJson(personaJson);
+    }
+
+    public Persona[] getAllPersonas() throws Exception {
+        try {
+            return obj.getAllPersonas().toArray(); 
+        } catch (Exception e) {
+            return (Persona[])Array.newInstance(Persona.class, 0);
+        }
+    }
+
+    // CRUD Operations -----------------------------------------------------
+
     public Persona getPersonaById(Integer id) throws Exception {
         return this.obj.getPersonaById(id);
     }
 
-    public String getPersonaJsonById(Integer id) throws Exception {
-        return this.obj.getPersonaJsonById(id);
+    public void save() throws Exception {
+        this.obj.save();
     }
 
-    public Boolean save() throws Exception {
-        return this.obj.save();
+    public void update() throws Exception {
+        this.obj.updatePersona();
     }
 
-    public void update(Persona persona) throws Exception {
-        this.obj.updatePersona(persona);
-    }
-
-    public void delete(Integer id) throws Exception {
+    public void deletePersona(Integer id) throws Exception {        
         this.obj.deletePersona(id);
     }
+
+    //Enumerations -----------------------------------------------------
 
     public Genero[] generos() {
         return this.obj.generos();
@@ -60,4 +75,5 @@ public class PersonaServices {
     public TipoIdentificacion[] tiposIdentificacion() {
         return this.obj.tiposIdentificaion();
     }
+
 }

@@ -9,9 +9,11 @@ import com.example.controller.tda.list.LinkedList;
 import com.example.models.Suscripcion;
 import com.example.models.enumerator.TipoSuscripcion;
 
+
 public class SuscripcionDao extends AdapterDao<Suscripcion> {
     private  Suscripcion suscripcion;
     
+
     public SuscripcionDao() {
         super(Suscripcion.class);
     }
@@ -57,16 +59,16 @@ public class SuscripcionDao extends AdapterDao<Suscripcion> {
     public void deleteSuscripcion(Integer id) throws Exception {
         LinkedList<Suscripcion> suscripciones = listAll();
         suscripciones.delete(id);
-        String data = g.toJson(suscripciones.toArray());
-        saveFile(data); 
+        //String data = g.toJson(suscripciones.toArray());
+        //saveFile(data); 
     }
 
     public void updateSuscripcion(Suscripcion suscripcion) throws Exception {
         Integer id = suscripcion.getId();
         LinkedList<Suscripcion> suscripciones = listAll();
         suscripciones.update(suscripcion, id);
-        String data = g.toJson(suscripciones.toArray());
-        saveFile(data);
+       // String data = g.toJson(suscripciones.toArray());
+        //saveFile(data);
     }
 
     public TipoSuscripcion[] tiposSuscripcion() {
